@@ -2,11 +2,13 @@ const doctor = require('../models/doctor')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const config = require('../configuration_folder/doctorconfig')
+const emailExistence = require('email-existence')
 
 //new doctor
 exports.createNewDoctor = async (req, res) => {
     const hashpassword = bcrypt.hashSync(req.body.password, 10)
     const body = req.body
+    const validEmail = await doctor.findOne({email:req.body.email})
     if(!body.surname || !body.firstname || !body.lastname || !body.dob || !body.gender || !body.specialization || !body.phone || !body.email || !body.password) {
         return res.status(422).json({message:`Please ensure all fields are properly filled`})
     }
@@ -19,14 +21,26 @@ exports.createNewDoctor = async (req, res) => {
     else if(body.gender != 'male' && body.gender != 'female') {
         return res.status(403).json({message:`Please who are you?`})
     }
+    else if(validEmail){
+        res.status(403).json({message:`Email already exist`})
+    }
     else if(body.phone.length > 11){
         return res.status(403).json({message:`phone number is too long`})
     }
     else{
-        const info = await doctor.create(req.body)
-        info.password = hashpassword
-        info.save()
-        res.status(200).json({info:info})
+        emailExistence.check(req.body.email, function(error, response){
+            //console.log('res: '+response);
+            if(response === false){
+                res.status(400).json({message:`invalid email address`})
+            }
+            else{
+                const info = doctor.create(req.body)
+                info.password = hashpassword
+                info.save()
+                res.status(200).json({info:info})
+            }
+        });
+        
     }
 }
 //doctor signin

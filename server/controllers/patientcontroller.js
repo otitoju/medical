@@ -10,6 +10,7 @@ exports.registerNewPatient = async (req, res) => {
     const lastname = body.lastname.toUpperCase().trim()
     const email = body.email.toUpperCase().trim()
     const phone = body.phone.trim()
+    
     if(!body.title || !body.surname || !body.firstname || !body.lastname ||!body.bloodgroup || !body.genotype || !body.patienttype || !body.occupation || !body.email || !body.phone){
         res.status(403).json({message:`please ensure all fields are filled`})
     }
@@ -23,7 +24,14 @@ exports.registerNewPatient = async (req, res) => {
         res.status(403).json({message:`invalid genotype`})
     }
     else{
-        const info = await patient.create(body)
-        res.json({info:info})
+        const validEmail = await patient.findOne({email:req.body.email})
+        if(validEmail){
+            res.status(403).json({message:`Email already exist`})
+        }
+        else{
+            const info = await patient.create(body)
+            res.json({info:info})
+        }
+        
     }
 }
