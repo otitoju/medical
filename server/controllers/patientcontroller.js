@@ -1,6 +1,7 @@
 const patient = require('../models/patient')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const emailExistence = require('email-existence')
 
 exports.registerNewPatient = async (req, res) => {
     const body = req.body
@@ -10,6 +11,7 @@ exports.registerNewPatient = async (req, res) => {
     const lastname = body.lastname.toUpperCase().trim()
     const email = body.email.toUpperCase().trim()
     const phone = body.phone.trim()
+    const validEmail = await patient.findOne({email:req.body.email})
     
     if(!body.title || !body.surname || !body.firstname || !body.lastname ||!body.bloodgroup || !body.genotype || !body.patienttype || !body.occupation || !body.email || !body.phone){
         res.status(403).json({message:`please ensure all fields are filled`})
@@ -23,15 +25,20 @@ exports.registerNewPatient = async (req, res) => {
     else if(genotype != 'AA' && genotype != 'AS' && genotype != 'SS' && genotype != 'AC'){
         res.status(403).json({message:`invalid genotype`})
     }
+    else if(validEmail){
+        res.status(403).json({message:`Email already exist`})
+    }
     else{
-        const validEmail = await patient.findOne({email:req.body.email})
-        if(validEmail){
-            res.status(403).json({message:`Email already exist`})
-        }
-        else{
-            const info = await patient.create(body)
-            res.json({info:info})
-        }
+        emailExistence.check(req.body.email, function(error, response){
+            //console.log('res: '+response);
+            if(response === false){
+                res.status(400).json({message:`invalid email address`})
+            }
+            else{
+                const info = patient.create(body)
+                res.json({info:info})
+            }
+        })
         
     }
 }
