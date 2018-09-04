@@ -15,7 +15,8 @@ const patientTable = new mongoose.Schema({
     occupation:String,
     email:String,
     dob:String,
-    phone:Number
+    phone:Number,
+    address:String
 })
 patientTable.plugin(mongodbErrorHandler)
 module.exports = mongoose.model('patient', patientTable)

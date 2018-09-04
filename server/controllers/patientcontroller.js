@@ -30,7 +30,6 @@ exports.registerNewPatient = async (req, res) => {
     }
     else{
         emailExistence.check(req.body.email, function(error, response){
-            //console.log('res: '+response);
             if(response === false){
                 res.status(400).json({message:`invalid email address`})
             }
@@ -41,4 +40,25 @@ exports.registerNewPatient = async (req, res) => {
         })
         
     }
+}
+//search for patient
+exports.searchPatient = async (req, res) => {
+    const name = req.body.name
+    const search = await new RegExp(name, 'i')
+    if(!name){
+        res.status(400).json({message:`field cannot be empty`})
+    }
+    else{
+        const result = await patient.find({$or: [{surname:search}, {firstname:search}, {email:search}, {lastname:search}]}, {password:0})
+        if(result == ''){
+            res.json({message:`No record found, ${result.length} matches `})
+        }
+        else{
+            res.json({info:result,
+                match:`${result.length} matches`
+            })
+        }
+    }
+    
+
 }

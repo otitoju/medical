@@ -9,6 +9,8 @@ router.post('/register', catchErrors(doctorcontroller.createNewDoctor))
 router.post('/signin', catchErrors(doctorcontroller.loginDoctor))
 router.get('/decode', catchErrors(doctorcontroller.decodeToken))
 router.get('/alldoctors', catchErrors(doctorcontroller.getAllDoctors))
+router.post('/search', catchErrors(doctorcontroller.searchDoctor))
+router.get('/doctor/:id', catchErrors(doctorcontroller.getSingleDoctor))
 
 //patient routes
 router.post('/patient', catchErrors(patientcontroller.registerNewPatient))

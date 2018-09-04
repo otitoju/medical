@@ -86,3 +86,31 @@ exports.getAllDoctors = async (req, res) => {
     const info = await doctor.find().sort({'_id':-1})
     return res.status(200).json({info:info})
 }
+//Search controller
+exports.searchDoctor = async (req, res) => {
+    const name = req.body.name
+    const search = await new RegExp(name, 'i')
+    if(!name){
+        res.status(400).json({message:`field cannot be empty`})
+    }
+    else{
+        const result = await doctor.find({$or: [{surname:search}, {firstname:search}, {specialization:search}, {lastname:search}]}, {password:0})
+        if(result == ''){
+            res.json({message:`No record found, ${result.length} matches `})
+        }
+        else{
+            res.json({info:result,
+                match:`${result.length} matches`
+            })
+        }
+    }
+    
+
+}
+//get a single doctor
+exports.getSingleDoctor = async (req, res) => {
+    const result = await doctor.findById(req.params.id)
+    res.status(200).json({
+        message:result
+    })
+}
