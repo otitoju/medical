@@ -38,21 +38,5 @@ exports.updatePost = async (req, res) => {
 
 //Add comment 
 exports.addComment = (req, res) => {
-    let _id = req.params.id
-    let Disease = new disease()
-    let comment = {
-        author:req.body.author,
-        message:req.body.message
-    }
-    const info = disease.update(_id)
-    const com = info.comments.push(comment)
-    res.json(com)
+    
 }
-// module.exports.addNewcomment = (query, comment)=> {
-//     Sick.update(query,
-//     {
-//         $push:{
-//             comments:comment
-//         }
-//     })
-// }

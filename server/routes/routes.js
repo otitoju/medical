@@ -23,43 +23,43 @@ router.get('/disease/:id', catchErrors(diseasecontroller.getsingleDisease))
 router.put('/update/:id', catchErrors(diseasecontroller.updatePost))
 router.delete('/delete/:id', catchErrors(diseasecontroller.deletePost))
 //router.post('/comment/:id', catchErrors(diseasecontroller.addComment))
-const Diseases = require('../models/sickness')
+// const Diseases = require('../models/sickness')
 
-const addNewComment = function(query, comment){
-    Diseases.update(query, {
-        $push:{
-            comments:comment
-        }
-    })
-}
+// const addNewComment = function(query, comment){
+//     Diseases.update(query, {
+//         $push:{
+//             comments:comment
+//         }
+//     })
+// }
 
-router.post('/comment/:id', (req,res) => {
-    let author = req.body.author
-    let message = req.body.message
-    Diseases.findById(req.params.id, (err, recipe)=> {
-        if(err){
-            console.log(err)
-        }
-        else{
-            Diseases.create({text:req.body.text}, (err, comment)=>{
-                if(err){
-                    console.log(err)
-                }
-                else{
+// router.post('/comment/:id', (req,res) => {
+//     let author = req.body.author
+//     let message = req.body.message
+//     Diseases.findById(req.params.id, (err, recipe)=> {
+//         if(err){
+//             console.log(err)
+//         }
+//         else{
+//             Diseases.create({text:req.body.text}, (err, comment)=>{
+//                 if(err){
+//                     console.log(err)
+//                 }
+//                 else{
                     
-                    const comments = Diseases.comments
-                    // comment.author. = userId
-                    // comment.author.username = username
-                    // comment.save()
+//                     const comments = Diseases.comments
+//                     // comment.author. = userId
+//                     // comment.author.username = username
+//                     // comment.save()
 
-                    //push comment to recipe model
-                    comments.push(comment)
-                    Diseases.save()
-                    console.log('yes')
+//                     //push comment to recipe model
+//                     comments.push(comment)
+//                     Diseases.save()
+//                     console.log('yes')
 
-                }
-            })
-        }
-    })
-})
+//                 }
+//             })
+//         }
+//     })
+// })
 module.exports = router

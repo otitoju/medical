@@ -13,7 +13,7 @@ exports.registerNewPatient = async (req, res) => {
     const phone = body.phone.trim()
     const validEmail = await patient.findOne({email:req.body.email})
     
-    if(!body.title || !body.surname || !body.firstname || !body.lastname ||!body.bloodgroup || !body.genotype || !body.patienttype || !body.occupation || !body.email || !body.phone){
+    if(!body.marital || !body.surname || !body.firstname || !body.lastname ||!body.bloodgroup || !body.genotype || !body.patienttype || !body.occupation || !body.email || !body.phone){
         res.status(403).json({message:`please ensure all fields are filled`})
     }
     else if(body.patienttype != 'regular' && body.patienttype != 'outpatient'){

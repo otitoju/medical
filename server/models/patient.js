@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const mongodbErrorHandler = require('mongoose-mongodb-errors')
 
 const patientTable = new mongoose.Schema({
-    title:String,
+    marital:String,
     surname:String,
     firstname:String,
     lastname:String,
