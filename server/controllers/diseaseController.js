@@ -32,8 +32,23 @@ exports.deletePost = async (req, res) => {
 
 //update post
 exports.updatePost = async (req, res) => {
-    const info = await disease.findByIdAndUpdate(req.params.id, req.body, {new:true})
-    res.status(200).json({message:info})
+    const info = await disease.findOne({_id: req.params.id})
+    if(!info){
+        res.status(200).json({
+            message:'no post found'
+        })
+    }
+    else{
+        info.symptoms = req.body.symptoms || info.symptoms
+        info.treatment = req.body.treatment || info.symptoms
+        info.precaution = req.body.precaution || info.precaution
+        await info.save()
+        res.json({
+            message:'you have successfully update post'
+        })
+    }
+    // const info = await disease.findByIdAndUpdate(req.params.id, req.body, {new:true})
+    // res.status(200).json({message:info})
 }
 
 //Add comment 

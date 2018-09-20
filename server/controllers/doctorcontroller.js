@@ -114,3 +114,22 @@ exports.getSingleDoctor = async (req, res) => {
         message:result
     })
 }
+//update doctor profile
+exports.updateDoctorProfile = async (req, res) => {
+    const { surname, firstname, lastname, dob, specialization, phone } = req.body
+    let hashpassword = bcrypt.hashSync(req.body.password, 10)
+    let doctorId = req.params.id
+    const info = await doctor.findOne({_id: doctorId})
+    
+    info.surname = surname || info.surname
+    info.firstname = firstname || info.firstname
+    info.lastname = lastname || info.lastname
+    info.specialization = specialization || info.specialization
+    info.dob = dob || info.dob
+    info.phone = phone || info.phone
+    info.password = hashpassword || info.password
+    await info.save()
+    res.json({
+        message:'profile successfully updated'
+    })
+}
