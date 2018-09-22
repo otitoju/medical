@@ -4,6 +4,7 @@ const { catchErrors } = require('../handlers/errorhandler')
 const doctorcontroller = require('../controllers/doctorcontroller')
 const patientcontroller = require('../controllers/patientcontroller')
 const diseasecontroller = require('../controllers/diseaseController')
+const serviceController = require('../controllers/serviceController')
 
 //doctor routes
 router.post('/register', catchErrors(doctorcontroller.createNewDoctor))
@@ -25,4 +26,7 @@ router.put('/update/:id', catchErrors(diseasecontroller.updatePost))
 router.delete('/delete/:id', catchErrors(diseasecontroller.deletePost))
 //router.post('/comment/:id', catchErrors(diseasecontroller.addComment))
 
+//service routes
+router.post('/service', catchErrors(serviceController.postNewService))
+router.get('/service/get', catchErrors(serviceController.findAllServices))
 module.exports = router

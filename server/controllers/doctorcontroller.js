@@ -10,7 +10,7 @@ exports.createNewDoctor = async (req, res) => {
     const body = req.body
     const validEmail = await doctor.findOne({email:req.body.email})
     if(!body.surname || !body.firstname || !body.lastname || !body.dob || !body.gender || !body.specialization || !body.phone || !body.email || !body.password) {
-        return res.status(422).json({message:`Please ensure all fields are properly filled`})
+        return res.status(204).json({message:`Please ensure all fields are properly filled`})
     }
     else if(body.surname.length > 25) {
         return res.status(403).json({message:`Surname is too long, ensure surname is not more than 25 characters`})
@@ -90,8 +90,8 @@ exports.getAllDoctors = async (req, res) => {
 exports.searchDoctor = async (req, res) => {
     const name = req.body.name
     const search = await new RegExp(name, 'i')
-    if(!name){
-        res.status(400).json({message:`field cannot be empty`})
+    if(!req.body.name){
+        res.json({message:`Oops!, i cannot search for an empty field`})
     }
     else{
         const result = await doctor.find({$or: [{surname:search}, {firstname:search}, {specialization:search}, {lastname:search}]}, {password:0})
@@ -109,7 +109,9 @@ exports.searchDoctor = async (req, res) => {
 }
 //get a single doctor
 exports.getSingleDoctor = async (req, res) => {
+    const doctorId = req.params.id
     const result = await doctor.findById(req.params.id)
+   // const result = await doctor.findOne({_id: doctorId})
     res.status(200).json({
         message:result
     })
