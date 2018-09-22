@@ -1,0 +1,66 @@
+body{
+    background: whitesmoke
+}
+#auth{
+    float:right;
+    padding-right: 5px;
+}
+#medic{
+    font-family: Brush Script MT;
+    font-style: italic;
+    font-weight: bolder;
+    color: rgb(97, 5, 5);
+}
+#slider{
+    background-image: url("../images/medic.jpg");
+    margin-top: 10px;
+    height: 950px;
+}
+footer{
+    background: rgb(97, 5, 5); 
+}
+#div1{
+    background-image: url("../images/Medical.jpg");
+}
+#div2{
+    background-image: url("../images/Medical_reversed.jpg");
+}
+ #welcome{
+    color: rgb(97, 5, 5); 
+    padding: 20px;
+    font-size: 47px;
+    font-family: serif;
+
+  }
+
+@media (max-width: 650px) {
+    #slider{
+      background-image: url("../images/medic.jpg");
+      margin-top: 10px;
+      width: auto;
+      margin:auto;
+  
+    }
+     #welcome{
+        color: rgb(97, 5, 5); 
+        padding: 20px;
+        font-size: 37px;
+        font-family: serif;
+      }
+  }
+@media (max-width: 350px) {
+    #slider{
+        background-image: url("../images/medic.jpg");
+        margin-top: 10px;
+        width: auto;
+        margin:auto;
+    
+      }
+       #welcome{
+          color: rgb(97, 5, 5); 
+          padding: 20px;
+          font-size: 27px;
+          font-family: serif;
+        }
+}
+  
