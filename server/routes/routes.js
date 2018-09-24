@@ -29,4 +29,7 @@ router.delete('/delete/:id', catchErrors(diseasecontroller.deletePost))
 //service routes
 router.post('/service', catchErrors(serviceController.postNewService))
 router.get('/service/get', catchErrors(serviceController.findAllServices))
+router.get('/service/get/:id', catchErrors(serviceController.findSingleService))
+router.put('/service/update/:id', catchErrors(serviceController.updateService))
+router.delete('/service/delete/:id', catchErrors(serviceController.removeService))
 module.exports = router

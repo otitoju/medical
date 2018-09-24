@@ -100,12 +100,13 @@ export default class signup extends Component {
   render() {
     return (
       <div>
-            <div class="col-sm-12">
-            <h2 class="text-center font-bold pt-4 pb-5 mb-5"><strong>Patient Registration form</strong></h2>
-            <h4 style={{textAlign:'center'}}> {this.state.response}</h4>
-            <div class="row">
-                    <div class="col-md-9 offset-2 mb-5">
-                        <form id="contact-form" method="POST">
+        <div class="container my-5">
+          <div class="row justify-content-center">
+            <div class="col-md-9 col-lg-9 col-xs-9">
+                <h2 class="text-center font-bold pt-4 pb-5 mb-5"><strong>Patient Registration form</strong></h2>
+                <h4 style={{textAlign:'center'}}> {this.state.response}</h4>
+                <hr/>
+                <form id="contact-form" method="POST">
             
                             <div class="row">
                                 <div class="col-md-4">
@@ -190,16 +191,17 @@ export default class signup extends Component {
                                             </div>
                                     </div>
                             </div>
-                            
+                            <div class="text-center text-md-left">
+                                <button class="btn btn-primary" onClick={this.handleSubmit}>signup <i class="fa fa-sign-in ml-1"></i></button>
+                            </div>
                         </form>
-            
-                        <div class="text-center text-md-left">
-                            <button class="btn btn-primary" onClick={this.handleSubmit}>signup <i class="fa fa-sign-in ml-1"></i></button>
-                        </div>
-                    </div>
-                </div>
+               
+              
+            </div>
+          </div>
+        </div>
 
-    </div>
+            
       </div>
     )
   }

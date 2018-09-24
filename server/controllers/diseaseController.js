@@ -3,7 +3,7 @@ const disease = require('../models/sickness')
 //post new disease
 exports.postNewDisease = async (req, res, next) => {
     const body =  req.body
-    if(!body.name || !body.symptoms || !body.precaution || !body.treatment){
+    if(!body.name || !body.symptoms || !body.precaution || !body.treatment || !body.cause){
         res.status(403).json({message:`please fill all fields`})
     }
     else{

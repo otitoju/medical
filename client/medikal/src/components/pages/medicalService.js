@@ -1,7 +1,22 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { findAllServices } from '../../api/api'
 
 export default class medicalService extends Component {
+        constructor(){
+        super()
+        this.state = {
+                services: []
+        }
+        }
+async componentDidMount() {
+        const services = await findAllServices()
+        this.setState({services: services.info})
+}
+// async componentDidUpdate() {
+//         const services = await findAllServices()
+//         this.setState({services: services.info})
+// }
   render() {
     return (
       <div>
@@ -10,66 +25,23 @@ export default class medicalService extends Component {
         <h1 class="font-weight-bold text-uppercase text-center mt-3 mb-4" style={{fontFamily:'Bookman Old Style'}}>Our Medical Services</h1>
     </div>
     <div class="card-deck">
-        <div class="col-sm-3">
+        {
+                this.state.services ? this.state.services.map( (service, index) => (
+        <div class="col-sm-3" key={index}>
                 <div class="card mb-4">
                         <div class="card-body">
-                          <h4 class="card-title">Orthopedics</h4>
-                          <p class="card-text">A medical laboratory or clinical laboratory is a laboratory where tests are carried out on clinical specimens in order to obtain information about the health of a patient in order to provide diagnosis, treatment, and prevention of disease.</p>
-                          <Link to='/' className="nav-link" style={{color:'rgb(97, 5, 5)'}}>View Doctor</Link>
+                          <h4 class="card-title">{service.name}</h4>
+                          <p class="card-text">{service.details}</p>
+                         {/* <Link to={`/service/${service._id}`}> <button className="btn btn-success">View Doctor</button></Link> */}
                         </div>
                     
                 </div>
-        </div>
-            <div class="col-sm-3">
-                    <div class="card mb-4">
-                            <div class="card-body">
-                              <h4 class="card-title">Cancer</h4>
-                              <p class="card-text">A medical laboratory or clinical laboratory is a laboratory where tests are carried out on clinical specimens in order to obtain information about the health of a patient in order to provide diagnosis, treatment, and prevention of disease.</p>
-                              <Link to='/' className="nav-link" style={{color:'rgb(97, 5, 5)'}}>View Doctor</Link>
-                            </div>
-                        
-                    </div>
-            </div>
-            <div class="col-sm-3">
-                    <div class="card mb-4">
-                            <div class="card-body">                       
-                              <h4 class="card-title">Neurology</h4>
-                              <p class="card-text">A medical laboratory or clinical laboratory is a laboratory where tests are carried out on clinical specimens in order to obtain information about the health of a patient in order to provide diagnosis, treatment, and prevention of disease.</p>
-                        
-                            </div>
-                        
-                    </div>
-            </div>
-            <div class="col-sm-3">
-                    <div class="card mb-4">
-                            <div class="card-body">
-                              <h4 class="card-title">Primary Health Care</h4>
-                              <p class="card-text">A medical laboratory or clinical laboratory is a laboratory where tests are carried out on clinical specimens in order to obtain information about the health of a patient in order to provide diagnosis, treatment, and prevention of disease.</p>
-                        
-                            </div>
-                        
-                    </div>
-            </div>
-            <div class="col-sm-3">
-                    <div class="card mb-4">
-                            <div class="card-body">
-                              <h4 class="card-title">Woman Care</h4>
-                              <p class="card-text">A medical laboratory or clinical laboratory is a laboratory where tests are carried out on clinical specimens in order to obtain information about the health of a patient in order to provide diagnosis, treatment, and prevention of disease.</p>
-                        
-                            </div>
-                        
-                    </div>
-            </div>
-            <div class="col-sm-3">
-                    <div class="card mb-4">
-                            <div class="card-body">
-                              <h4 class="card-title">Children Care</h4>
-                              <p class="card-text">A medical laboratory or clinical laboratory is a laboratory where tests are carried out on clinical specimens in order to obtain information about the health of a patient in order to provide diagnosis, treatment, and prevention of disease.</p>
-                        
-                            </div>
-                        
-                    </div>
-            </div>
+        </div>  
+                )) : (
+                        <h1>Unable to fetch services please try again</h1>
+                )
+        }
+        
     </div>
       </div>
     )

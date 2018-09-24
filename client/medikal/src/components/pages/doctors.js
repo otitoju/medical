@@ -67,9 +67,11 @@ export default class doctors extends Component {
                       <h5>Specialization: {res.specialization}</h5>
                       <h6>Age: 36</h6>
                     </div>
+                    <div class="text-center">
                     <Link to={`/doctor/${res._id}`} className="nav-link" style={{color:'rgb(97, 5, 5)'}}>
-                    <button class="btn btn-primary">View profile</button>
+                    <button class="btn btn-primary"><i class="fa fa-info" aria-hidden="true"></i>View profile</button>
                     </Link>
+                    </div>
                 </div>
                 </div>
             })}

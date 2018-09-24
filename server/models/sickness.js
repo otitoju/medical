@@ -6,6 +6,7 @@ const sicknessSchema = new mongoose.Schema({
     symptoms:String,
     precaution:String,
     treatment:String,
+    cause:String,
     comments:[{
         author:String,
         message:String

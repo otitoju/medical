@@ -39,3 +39,24 @@ export async function searchDoctor(search) {
         return error.message
     }
 }
+//get services
+export async function findAllServices(){
+    try {
+        const services = await axios.get('http://localhost:7000/service/get')
+        console.log(services)
+        return services.data
+    } catch (error) {
+       return error.message
+    }
+}
+//update services
+export async function updateServices(id) {
+    try {
+        //const { name, details} = info
+        const Service =  await axios.put(`/service/update/${id}`)
+        console.log(Service)
+        return Service.data
+    } catch (error) {
+        return error.message
+    }
+}

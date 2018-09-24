@@ -61,6 +61,10 @@ export default class footer extends Component {
                     <li>
                     +234-8104215771
                     </li>
+                    <li>
+                    <a class="btn-floating btn-gplus mx-1">
+                    <i class="fa fa-github"> </i></a>
+                    </li>
                 </ul>
 
                 </div>
