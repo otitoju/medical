@@ -62,3 +62,13 @@ exports.searchPatient = async (req, res) => {
     
 
 }
+//get all patients
+exports.getAllPatients = async (req, res) => {
+    const info = await patient.find().sort({'_id':-1})
+    res.json({info:info})
+}
+//delete a patient
+exports.deletePatient = async  (req, res) => {
+    const info = await patient.findByIdAndRemove(req.params.id)
+    res.json({message:'success'})
+}

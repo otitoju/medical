@@ -17,6 +17,8 @@ router.put('/changeprofile/:doctorId', catchErrors(doctorcontroller.updateDoctor
 
 //patient routes
 router.post('/patient', catchErrors(patientcontroller.registerNewPatient))
+router.get('/patients', catchErrors(patientcontroller.getAllPatients))
+router.delete('/removepatient/:id', catchErrors(patientcontroller.deletePatient))
 
 //disease routes
 router.post('/disease', catchErrors(diseasecontroller.postNewDisease))
